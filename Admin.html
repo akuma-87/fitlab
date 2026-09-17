@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body style="background-color: #121212; color: white; padding: 20px;">
-
     <div class="container">
         <h1 class="text-center" style="color: #ff5722;">FitLab - Panel de Administracion</h1>
         
@@ -17,8 +16,7 @@
             <a href="login.html" class="text-white" style="margin: 10px;">Iniciar Sesion</a> |
             <a href="admin.html" class="text-danger" style="margin: 10px;">Administracion</a>
         </div>
-
-        //formulario para agregar producto
+        <!-- formulario para agregar producto-->
         <div class="bg-dark p-3 rounded mb-4" style="max-width: 500px; margin: 0 auto;">
             <h4 style="color: #ff5722;" class="text-center mb-3">Agregar Nuevo Producto</h4>
             <form onsubmit="agregarProductoNuevo(event)">
@@ -33,7 +31,6 @@
                 <button type="submit" class="btn btn-warning w-100">Registrar Producto</button>
             </form>
         </div>
-
         <!-- TABLA DINAMICA DE PRODUCTOS -->
         <h4 style="color: #ff5722;">Control de Inventario y Stock</h4>
         <div class="table-responsive">
@@ -46,12 +43,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Se carga dinamicamente con JS -->
                 </tbody>
             </table>
         </div>
     </div>
-
     <script src="funciones.js"></script>
 </body>
 </html>

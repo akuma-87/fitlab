@@ -2,17 +2,14 @@
 function agregarAlCarrito(nombreProducto, precio) {
     var listaCarrito = JSON.parse(sessionStorage.getItem("productosCarrito")) || [];
 
-    
     listaCarrito.push({ nombre: nombreProducto, precio: precio });
 
     sessionStorage.setItem("productosCarrito", JSON.stringify(listaCarrito));
 
-    
     actualizarContadorMenu();
 
     alert("Se agregó " + nombreProducto + " al carrito.");
 }
-
 
 function actualizarContadorMenu() {
     var listaCarrito = JSON.parse(sessionStorage.getItem("productosCarrito")) || [];
@@ -22,12 +19,10 @@ function actualizarContadorMenu() {
     }
 }
 
-
 function cargarTablaCarrito() {
     var tabla = document.getElementById("tabla-carrito");
     var elementoTotal = document.getElementById("total-pagar");
 
-    
     if (!tabla) return;
 
     var listaCarrito = JSON.parse(sessionStorage.getItem("productosCarrito")) || [];
@@ -40,7 +35,6 @@ function cargarTablaCarrito() {
         return;
     }
 
-    
     for (var i = 0; i < listaCarrito.length; i++) {
         var prod = listaCarrito[i];
         totalPagar += prod.precio;
@@ -63,16 +57,35 @@ function cargarTablaCarrito() {
     }
 }
 
-
 function eliminarDelCarrito(posicion) {
     var listaCarrito = JSON.parse(sessionStorage.getItem("productosCarrito")) || [];
     listaCarrito.splice(posicion, 1);
     sessionStorage.setItem("productosCarrito", JSON.stringify(listaCarrito));
     cargarTablaCarrito();
+    actualizarContadorMenu(); // Añadido para que se actualice el contador al eliminar
 }
 
-//Registro
+// Nueva función para finalizar la compra
+function finalizarCompra() {
+    var listaCarrito = JSON.parse(sessionStorage.getItem("productosCarrito")) || [];
+    
+    // Validamos que haya productos
+    if (listaCarrito.length === 0) {
+        alert("El carrito está vacío. ¡Agrega productos antes de finalizar!");
+        return;
+    }
+    
+    // Entregamos el mensaje y esperamos a que el usuario presione Aceptar
+    alert("¡Gracias por tu compra en FitLab!");
+    
+    // Vaciamos el carrito
+    sessionStorage.removeItem("productosCarrito"); 
+    
+    // Redirigimos al inicio
+    window.location.href = "index.html";
+}
 
+// Registro
 function registrarUsuario() {
     var campoNombre = document.getElementById("regNombre");
     var campoCorreo = document.getElementById("regCorreo");
@@ -82,7 +95,6 @@ function registrarUsuario() {
     var correo = campoCorreo ? campoCorreo.value : "";
     var clave = campoClave ? campoClave.value : "";
 
-    
     if (nombre.trim() == "" || correo.trim() == "" || clave.trim() == "") {
         alert("Por favor completa todos los campos.");
         if (campoNombre) campoNombre.value = "";
@@ -91,7 +103,6 @@ function registrarUsuario() {
         return;
     }
 
-   
     if (clave.length < 4) {
         alert("La contraseña debe tener 4 o más dígitos.");
         if (campoNombre) campoNombre.value = "";
@@ -100,7 +111,6 @@ function registrarUsuario() {
         return;
     }
 
-    
     if (!correo.endsWith("@gmail.com") && !correo.endsWith("@duocuc.cl")) {
         alert("El correo debe contener @gmail.com o @duocuc.cl");
         if (campoNombre) campoNombre.value = "";
@@ -112,8 +122,8 @@ function registrarUsuario() {
     alert("¡Usuario registrado con éxito!");
     window.location.href = "login.html";
 }
-//login
 
+// Login
 function iniciarSesion() {
     var campoCorreo = document.getElementById("correoLogin");
     var campoClave = document.getElementById("claveLogin");
@@ -121,7 +131,6 @@ function iniciarSesion() {
     var correo = campoCorreo ? campoCorreo.value : "";
     var clave = campoClave ? campoClave.value : "";
 
-    //validaciones de usuario
     if (correo.trim() == "" || clave.trim() == "") {
         alert("Por favor completa todos los campos.");
         if (campoCorreo) campoCorreo.value = "";
@@ -129,7 +138,6 @@ function iniciarSesion() {
         return;
     }
 
-    
     if (clave.length < 4) {
         alert("Error de contraseña: debe tener 4 o más dígitos.");
         if (campoCorreo) campoCorreo.value = "";
@@ -137,7 +145,6 @@ function iniciarSesion() {
         return;
     }
 
-    
     if (!correo.endsWith("@gmail.com") && !correo.endsWith("@duocuc.cl")) {
         alert("Correo inválido: debe contener @ y terminar en gmail.com o duocuc.cl");
         if (campoCorreo) campoCorreo.value = "";
@@ -149,7 +156,7 @@ function iniciarSesion() {
     window.location.href = "index.html";
 }
 
-//Hoja de administracion
+// Hoja de administracion
 
 // Inventario inicial
 function obtenerInventario() {
@@ -247,7 +254,6 @@ function agregarProductoNuevo(event) {
     if (campoStock) campoStock.value = "";
     cargarTablaAdmin();
 }
-
 
 window.onload = function() {
     actualizarContadorMenu();
